@@ -1,0 +1,25 @@
+{
+  "name": "mini-compete",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "db:migrate": "cd apps/backend && npx prisma migrate dev",
+    "db:seed": "cd apps/backend && npx prisma db seed",
+    "db:studio": "cd apps/backend && npx prisma studio"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.0"
+  },
+  "dependencies": {
+    "@nestjs/mapped-types": "^2.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2"
+  }
+}

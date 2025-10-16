@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  PARTICIPANT
+  ORGANIZER
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  password      String
+  role          Role
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  competitions  Competition[]  @relation("OrganizerCompetitions")
+  registrations Registration[]
+  mailbox       MailBox[]
+
+  @@index([email])
+  @@map("users")
+}
+
+model Competition {
+  id            String         @id @default(uuid())
+  title         String
+  description   String         @db.Text
+  tags          String[]       @default([])
+  capacity      Int
+  regDeadline   DateTime
+  startDate     DateTime?
+  createdById   String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  deletedAt     DateTime?
+
+  organizer     User           @relation("OrganizerCompetitions", fields: [createdById], references: [id], onDelete: Cascade)
+  registrations Registration[]
+
+  @@index([createdById])
+  @@map("competitions")
+}
+
+model Registration {
+  id              String      @id @default(uuid())
+  userId          String
+  competitionId   String
+  idempotencyKey  String?     @unique
+  registeredAt    DateTime    @default(now())
+  deletedAt       DateTime?
+
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  competition     Competition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, competitionId])
+  @@index([userId])
+  @@index([competitionId])
+  @@map("registrations")
+}
+
+model MailBox {
+  id        String   @id @default(uuid())
+  userId    String
+  to        String
+  subject   String
+  body      String   @db.Text
+  sentAt    DateTime @default(now())
+  jobId     String?
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("mailbox")
+}
+
+model FailedJob {
+  id            String   @id @default(uuid())
+  jobName       String
+  jobData       Json
+  error         String   @db.Text
+  failedAt      DateTime @default(now())
+  attempts      Int      @default(0)
+
+  @@index([jobName])
+  @@map("failed_jobs")
+}
