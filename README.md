@@ -21,19 +21,8 @@ A full-stack competition management platform built with NestJS, Next.js, Prisma,
 - **Competition Management**: Organizers can create and manage competitions
 - **Registration System**: Participants can register for competitions with idempotency support
 - **Concurrency Control**: Database transactions prevent overselling when multiple users register simultaneously
-- **Background Jobs**: Async email confirmations using BullMQ and Redis
-- **Scheduled Reminders**: Cron jobs send reminders 24 hours before competitions start
+- **Background Jobs**: Async email confirmations using BullMQ 
 - **Email Simulation**: All emails stored in database MailBox table
-
-### Technical Features
-- **Idempotency Keys**: Prevent duplicate registrations from retried requests
-- **Dead Letter Queue**: Failed jobs stored in database with retry logic
-- **Exponential Backoff**: Smart retry strategy for failed background jobs
-- **Soft Deletes**: Data preservation with deletedAt timestamps
-- **Database Indexing**: Optimized queries with strategic indexes
-- **Type Safety**: Full TypeScript implementation across frontend and backend
-
----
 
 ## 🛠 Tech Stack
 
@@ -43,8 +32,6 @@ A full-stack competition management platform built with NestJS, Next.js, Prisma,
 - **ORM**: Prisma
 - **Queue**: BullMQ + Redis 7
 - **Authentication**: JWT with Passport
-- **Validation**: class-validator + class-transformer
-- **Scheduling**: @nestjs/schedule (Cron jobs)
 
 ### Frontend
 - **Framework**: Next.js 14
@@ -119,15 +106,6 @@ Add Job to Queue (BullMQ)
 Worker Process Picks Up Job
        ↓
 Send Confirmation Email
-       ↓
-Success → Store in MailBox
-Failure → Retry (3 attempts) → Dead Letter Queue
-```
-
-**Job Configuration:**
-- 3 retry attempts
-- Exponential backoff (2s, 4s, 8s)
-- Failed jobs stored in FailedJob table
 
 ---
 
