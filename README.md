@@ -649,95 +649,9 @@ model FailedJob {
 }
 ```
 
----
-
-## 🎯 Assignment Deliverables Checklist
-
-- [x] **Monorepo with Turborepo**
-  - `turbo.json` configured
-  - Workspace structure: `apps/backend`, `apps/frontend`
-
-- [x] **Backend: NestJS + Prisma + PostgreSQL**
-  - NestJS modules for auth, competitions, queue
-  - Prisma schema with all required models
-  - PostgreSQL in Docker
-
-- [x] **Frontend: Next.js**
-  - Basic UI for signup, login, competitions
-  - React with TypeScript
-  - Tailwind CSS styling
-
-- [x] **Redis + BullMQ**
-  - Redis in Docker
-  - BullMQ queue for background jobs
-  - Worker processor with retry logic
-
-- [x] **Docker Compose**
-  - PostgreSQL container
-  - Redis container
-  - Configured with volumes
-
-- [x] **JWT Authentication**
-  - Signup endpoint
-  - Login endpoint
-  - Password hashing with bcrypt
-  - Role-based access control
-
-- [x] **Competition Endpoints**
-  - POST /competitions (organizer only)
-  - POST /competitions/:id/register (participant only)
-  - GET /competitions
-  - Idempotency-Key header support
-
-- [x] **Concurrency Control**
-  - Database transactions
-  - Row-level locking
-  - Capacity checking within transaction
-
-- [x] **Background Worker**
-  - Registration confirmation job
-  - Email simulation (MailBox table)
-  - Retry logic with exponential backoff
-  - Dead Letter Queue (FailedJob table)
-
-- [x] **Cron Job**
-  - Daily reminder scheduler
-  - Enqueues jobs for users
-  - Processes competitions starting in 24h
-
-- [x] **Prisma Migrations + Seed**
-  - Migration files generated
-  - Seed script with 2 organizers, 5 users, 5 competitions
-
-- [x] **.env.example**
-  - All required environment variables documented
-
-- [x] **README**
-  - Run steps
-  - Architecture notes
-  - Concurrency implementation explained
-  - Tradeoffs documented
-
-- [x] **Postman/CURL Examples**
-  - All endpoints tested
-  - Examples in README
 
 ---
 
-## 🚀 Deployment Considerations
-
-### Production Checklist
-- [ ] Change JWT_SECRET to secure random string
-- [ ] Enable HTTPS
-- [ ] Set up proper CORS origins
-- [ ] Configure production database (managed PostgreSQL)
-- [ ] Use managed Redis (AWS ElastiCache, Redis Cloud)
-- [ ] Set up monitoring (Sentry, DataDog)
-- [ ] Configure logging (Winston, Pino)
-- [ ] Add rate limiting
-- [ ] Set up CI/CD pipeline
-- [ ] Enable database backups
-- [ ] Configure horizontal scaling for workers
 
 ### Scaling Considerations
 - **Database**: Connection pooling, read replicas
@@ -756,25 +670,4 @@ model FailedJob {
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Open Pull Request
 
----
 
-## 📝 License
-
-MIT License - feel free to use this project for learning and development.
-
----
-
-## 👨‍💻 Author
-
-**Assignment**: OppSkills Mini Compete  
-**Time Spent**: ~14 hours  
-**Completion Date**: October 2025
-
----
-
-## 🙏 Acknowledgments
-
-- NestJS documentation and examples
-- Prisma best practices guide
-- BullMQ documentation
-- Next.js app router examples
