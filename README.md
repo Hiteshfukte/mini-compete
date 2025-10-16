@@ -190,7 +190,6 @@ npm run dev
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:3001
 - **Prisma Studio**: http://localhost:5555 (run `npx prisma studio`)
-- **Redis Commander**: http://localhost:8081 (optional)
 
 ---
 
